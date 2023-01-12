@@ -40,7 +40,7 @@ public class SchetsWin : Form
                                 , new RechthoekTool()
                                 , new VolRechthoekTool()
                                 , new EllipsTool()
-                                , new VolEllipsTool
+                                , new VolEllipsTool()
                                 , new TekstTool()
                                 , new GumTool()
                                 };
