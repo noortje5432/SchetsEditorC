@@ -56,6 +56,12 @@ public abstract class TweepuntTool : StartpuntTool
                             , new Size (Math.Abs(p1.X-p2.X), Math.Abs(p1.Y-p2.Y))
                             );
     }
+    public static Ellipse Punten2Ellips(Point p1, Point p2) //nieuw
+    {
+        return new Ellipse(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
+                            , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
+                            );
+    }
     public static Pen MaakPen(Brush b, int dikte)
     {   Pen pen = new Pen(b, dikte);
         pen.StartCap = LineCap.Round;
@@ -100,6 +106,28 @@ public class VolRechthoekTool : RechthoekTool
 
     public override void Compleet(Graphics g, Point p1, Point p2)
     {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
+    }
+}
+
+//Nieuwe methodes cirkel en volcirkel
+
+public class EllipsTool : TweepuntTool
+{
+    public override string ToString() { return "ellips"; }
+
+    public override void Bezig(Graphics g, Point p1, Point p2)
+    {
+        g.DrawEllipse(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1, p2));
+    }
+}
+
+public class VolEllipsTool : EllipsTool
+{
+    public override string ToString() { return "gevulde ellips"; }
+
+    public override void Compleet(Graphics g, Point p1, Point p2)
+    {
+        g.FillEllipse(kwast, TweepuntTool.Punten2Ellips(p1, p2));
     }
 }
 
