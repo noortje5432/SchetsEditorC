@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows.Shapes;
 
 public interface ISchetsTool
 {
@@ -55,12 +54,6 @@ public abstract class TweepuntTool : StartpuntTool
     public static Rectangle Punten2Rechthoek(Point p1, Point p2)
     {   return new Rectangle( new Point(Math.Min(p1.X,p2.X), Math.Min(p1.Y,p2.Y))
                             , new Size (Math.Abs(p1.X-p2.X), Math.Abs(p1.Y-p2.Y))
-                            );
-    }
-    public static Ellipse Punten2Ellips(Point p1, Point p2) //nieuw
-    {
-        return new Ellipse(new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y))
-                            , new Size(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y))
                             );
     }
     public static Pen MaakPen(Brush b, int dikte)
@@ -118,7 +111,7 @@ public class EllipsTool : TweepuntTool
 
     public override void Bezig(Graphics g, Point p1, Point p2)
     {
-        g.DrawEllipse(MaakPen(kwast, 3), p1, p2);
+        g.DrawEllipse(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1,p2));
     }
 }
 
@@ -128,7 +121,7 @@ public class VolEllipsTool : EllipsTool
 
     public override void Compleet(Graphics g, Point p1, Point p2)
     {
-        g.FillEllipse(kwast, p1, p2);
+        g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
     }
 }
 
