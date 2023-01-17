@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.IO;
 
 public class SchetsWin : Form
 {   
@@ -26,6 +28,39 @@ public class SchetsWin : Form
     private void klikToolButton(object obj, EventArgs ea)
     {
         this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
+    }
+
+    private void opslaan(object o, EventArgs ea)        //nieuw
+    {
+        if (Text == "")
+            opslaanAls(o, ea);
+        else
+            schrijfNaarFile();
+    }
+
+    private void opslaanAls(object o, EventArgs ea)     //nieuw
+    {
+        SaveFileDialog dialoog = new SaveFileDialog();
+        dialoog.Filter = "files|*.png|Alle files|*.*";
+        dialoog.Title = "Afbeelding opslaan als...";
+        if (dialoog.ShowDialog() == DialogResult.OK)
+        {
+            Text = dialoog.FileName;
+            schrijfNaarFile();
+        }
+    }
+
+    private void schrijfNaarFile()                      //nieuw
+    {
+        StreamWriter writer = new StreamWriter(Text);
+    }
+
+    private void LeesVanFile(string naam)
+    {
+        /*Graphics gr = Graphics.FromImage(bitmap);
+        gr.Image = new Bitmap($"../../../{naam}.png");
+        //reader.Close();
+        //Text = naam;*/
     }
 
     private void afsluiten(object obj, EventArgs ea)
@@ -85,6 +120,8 @@ public class SchetsWin : Form
     {   
         ToolStripMenuItem menu = new ToolStripMenuItem("File");
         menu.MergeAction = MergeAction.MatchOnly;
+        menu.DropDownItems.Add("Opslaan", null, this.opslaan);                   //nieuw
+        menu.DropDownItems.Add("Opslaan als...", null, this.opslaanAls);        //nieuw
         menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
         menuStrip.Items.Add(menu);
     }

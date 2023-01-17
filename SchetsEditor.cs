@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Net.Http.Headers;
 using System.Windows.Forms;
 
 public class SchetsEditor : Form
@@ -21,6 +22,7 @@ public class SchetsEditor : Form
     {   
         ToolStripDropDownItem menu = new ToolStripMenuItem("File");
         menu.DropDownItems.Add("Nieuw", null, this.nieuw);
+        menu.DropDownItems.Add("Open...", null, this.open);
         menu.DropDownItems.Add("Exit", null, this.afsluiten);
         menuStrip.Items.Add(menu);
     }
@@ -48,5 +50,21 @@ public class SchetsEditor : Form
     private void afsluiten(object sender, EventArgs e)
     {   
         this.Close();
+    }
+
+    public void open(object sender, EventArgs e)               //nieuw
+    {
+       // Graphics gr = Graphics.FromImage(Scherm.bitmap);
+       // gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+        /*OpenFileDialog dialoog = new OpenFileDialog();
+        dialoog.Filter = "Files|*.png|Alle files|*.*";
+        dialoog.Title = "Afbeelding openen...";
+        if (dialoog.ShowDialog() == DialogResult.OK) 
+        {
+            Graphics gr = Graphics.FromImage(Schets.bitmap);
+            gr.MdiParent = this;
+            gr.LeesVanFile(dialoog.FileName);
+            gr.Show();
+        }*/
     }
 }
