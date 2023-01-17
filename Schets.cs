@@ -5,7 +5,7 @@ using System.Drawing;
 public class Schets
 {
     public Bitmap bitmap;
-        
+
     public Schets()
     {
         bitmap = new Bitmap(1, 1);
@@ -18,7 +18,7 @@ public class Schets
     {
         if (sz.Width > bitmap.Size.Width || sz.Height > bitmap.Size.Height)
         {
-            Bitmap nieuw = new Bitmap( Math.Max(sz.Width,  bitmap.Size.Width)
+            Bitmap nieuw = new Bitmap(Math.Max(sz.Width, bitmap.Size.Width)
                                      , Math.Max(sz.Height, bitmap.Size.Height)
                                      );
             Graphics gr = Graphics.FromImage(nieuw);
@@ -39,5 +39,13 @@ public class Schets
     public void Roteer()
     {
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+    }
+    private void schrijfNaarFile()                      //nieuw
+    {
+        MemoryStream memoryStream = new MemoryStream();
+        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        /*StreamWriter writer = new StreamWriter(Text);
+        writer.Write(schets.Text);
+        writer.Close();*/
     }
 }

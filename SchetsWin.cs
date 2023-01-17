@@ -50,14 +50,7 @@ public class SchetsWin : Form
         }
     }
 
-    private void schrijfNaarFile()                      //nieuw
-    {
-        MemoryStream memoryStream= new MemoryStream();
-        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-        /*StreamWriter writer = new StreamWriter(Text);
-        writer.Write(schets.Text);
-        writer.Close();*/
-    }
+    
 
     private void LeesVanFile(string naam)
     {
