@@ -35,10 +35,10 @@ public class SchetsWin : Form
         if (Text == "")
             opslaanAls(o, ea);
         else
-            schrijfNaarFile();
+            schetscontrol.brug(Text);
     }
 
-    private void opslaanAls(object o, EventArgs ea)     //nieuw
+    public void opslaanAls(object o, EventArgs ea)     //nieuw
     {
         SaveFileDialog dialoog = new SaveFileDialog();
         dialoog.Filter = "files|*.png|Alle files|*.*";
@@ -46,18 +46,28 @@ public class SchetsWin : Form
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
             Text = dialoog.FileName;
-            schrijfNaarFile();
+            schetscontrol.brug(Text);
         }
     }
 
-    
-
-    private void LeesVanFile(string naam)
+    public void open(object sender, EventArgs e)               //nieuw
     {
-        /*Graphics gr = Graphics.FromImage(bitmap);
-        gr.Image = new Bitmap($"../../../{naam}.png");
-        //reader.Close();
-        //Text = naam;*/
+        // Graphics gr = Graphics.FromImage(Scherm.bitmap);
+        // gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+        OpenFileDialog dialoog = new OpenFileDialog();
+        dialoog.Filter = "Files|*.Png|Alle files|*.*";
+        dialoog.Title = "Afbeelding openen...";
+        if (dialoog.ShowDialog() == DialogResult.OK)
+        {
+            //SchetsWin s = new SchetsWin();
+            //s.MdiParent = this;
+            schetscontrol.brugb(dialoog.FileName);
+            //s.Show();
+            /*Graphics gr = Graphics.FromImage(Schets.bitmap);
+            gr.MdiParent = this;
+            gr.LeesVanFile(dialoog.FileName);
+            gr.Show();*/
+        }
     }
 
     private void afsluiten(object obj, EventArgs ea)
@@ -119,6 +129,7 @@ public class SchetsWin : Form
         menu.MergeAction = MergeAction.MatchOnly;
         menu.DropDownItems.Add("Opslaan", null, this.opslaan);                   //nieuw
         menu.DropDownItems.Add("Opslaan als...", null, this.opslaanAls);        //nieuw
+        menu.DropDownItems.Add("Open...", null, this.open);                     //nieuw
         menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
         menuStrip.Items.Add(menu);
     }

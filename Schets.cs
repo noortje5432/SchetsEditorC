@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 public class Schets
 {
-    public Bitmap bitmap;
+    private Bitmap bitmap;
 
     public Schets()
     {
@@ -40,12 +42,16 @@ public class Schets
     {
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
     }
-    private void schrijfNaarFile()                      //nieuw
+
+    public void schrijfNaarFile(string Text)                      //nieuw
     {
-        MemoryStream memoryStream = new MemoryStream();
-        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-        /*StreamWriter writer = new StreamWriter(Text);
-        writer.Write(schets.Text);
-        writer.Close();*/
+        bitmap.Save(Text, ImageFormat.Png);
+    }
+
+    public void LeesVanFile(string bestandNaam)
+    {
+        Image image1 = Image.FromFile(bestandNaam);
+        Bitmap bpm = new Bitmap(image1);
+        bitmap = bpm;
     }
 }

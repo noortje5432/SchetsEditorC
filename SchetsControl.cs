@@ -53,4 +53,14 @@ public class SchetsControl : UserControl
     {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
         penkleur = Color.FromName(kleurNaam);
     }
+
+    public void brug(string Text)
+    {
+        schets.schrijfNaarFile(Text);
+    }
+
+    public void brugb(string bestandnaam)
+    {
+        schets.LeesVanFile(bestandnaam);
+    }
 }
