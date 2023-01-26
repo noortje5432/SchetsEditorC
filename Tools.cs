@@ -122,7 +122,7 @@ public class TekstTool : StartpuntTool
             Point beginpunt = startpunt;
             startpunt.X += (int)sz.Width;
             Point eindpunt = startpunt;
-            Figuren letter = new figuur(soort, beginpunt, eindpunt, kleur) { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
+            Figuren letter = new Figuren() { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
             s.schets.elementen.Add(letter);
             s.Invalidate();
         }
