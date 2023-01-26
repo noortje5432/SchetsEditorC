@@ -190,9 +190,15 @@ public class VolRechthoekTool : RechthoekTool
     public override string ToString() { return "vlak"; }
 
     public override void Compleet(Graphics g, Point p1, Point p2)
-    {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-        figuur vlak = new figuur() { soort = "vlak", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+    {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));;
+    }
+
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren vlak = new Figuren() { soort = "vlak", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
         s.schets.elementen.Add(vlak);
+        s.Invalidate();
     }
 }
 
@@ -210,8 +216,8 @@ public class EllipsTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren kader = new figuur() { soort = "ellips", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        s.schets.elementen.Add(kader);
+        Figuren ellips = new Figuren() { soort = "ellips", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(ellips);
         s.Invalidate();
     }
 }
@@ -223,9 +229,16 @@ public class VolEllipsTool : EllipsTool
     public override void Compleet(Graphics g, Point p1, Point p2)
     {
         g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-        figuur bol = new figuur() { soort = "bol", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        elementen.Add(bol);
     }
+
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren bol = new Figuren() { soort = "bol", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(bol);
+        s.Invalidate();
+    }
+
 }
 
 public class LijnTool : TweepuntTool
@@ -234,8 +247,14 @@ public class LijnTool : TweepuntTool
 
     public override void Bezig(Graphics g, Point p1, Point p2)
     {   g.DrawLine(MaakPen(this.kwast,3), p1, p2);
-        figuur lijn = new figuur() { soort = "lijn", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        elementen.Add(lijn);
+    }
+
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren lijn = new Figuren() { soort = "lijn", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(lijn);
+        s.Invalidate();
     }
 }
 
@@ -246,8 +265,14 @@ public class PenTool : LijnTool
     public override void MuisDrag(SchetsControl s, Point p)
     {   this.MuisLos(s, p);
         this.MuisVast(s, p);
-        figuur pen = new figuur() { soort = "pen", beginpunt = p, eindpunt = p, kleur = "zwart" };
-        elementen.Add(pen);
+    }
+
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren pen = new Figuren() { soort = "pen", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(pen);
+        s.Invalidate();
     }
 }
     
