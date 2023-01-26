@@ -122,7 +122,7 @@ public class TekstTool : StartpuntTool
             Point beginpunt = startpunt;
             startpunt.X += (int)sz.Width;
             Point eindpunt = startpunt;
-            Figuren letter = new Figuren(soort, beginpunt, eindpunt, kleur) { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
+            Figuren letter = new figuur(soort, beginpunt, eindpunt, kleur) { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
             s.schets.elementen.Add(letter);
             s.Invalidate();
         }
@@ -205,8 +205,14 @@ public class EllipsTool : TweepuntTool
     public override void Bezig(Graphics g, Point p1, Point p2)
     {
         g.DrawEllipse(MaakPen(kwast, 3), TweepuntTool.Punten2Rechthoek(p1,p2));
-        figuur ellips = new figuur() { soort = "ellips", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        elementen.Add(ellips);
+    }
+
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren kader = new figuur() { soort = "ellips", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(kader);
+        s.Invalidate();
     }
 }
 
