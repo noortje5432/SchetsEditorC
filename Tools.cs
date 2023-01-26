@@ -36,14 +36,14 @@ public class VlakGumTool : StartpuntTool
     public void bovensteElement(SchetsControl s, Point p)
     {
         List<int> mogelijkheden = new List<int>();
-        int getal = elementen.Count;
+        int getal = s.schets.elementen.Count;
         Point klikpunt = p;
         int i = 0;
         while (i < getal)
         {
-            if (elementen[i].beginpunt.X <= klikpunt.X && elementen[i].eindpunt.X <= klikpunt.X)
+            if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && s.schets.elementen[i].eindpunt.X <= klikpunt.X)
             {
-                if (elementen[i].beginpunt.Y <= klikpunt.Y && element[i].eindpunt.Y <= klikpunt.Y)
+                if (s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && s.schets.elementen[i].eindpunt.Y <= klikpunt.Y)
                 {
                     mogelijkheden.Add(i);
                 }
@@ -52,18 +52,18 @@ public class VlakGumTool : StartpuntTool
 
         if (mogelijkheden.Count != 0)
         {
-            elementen.RemoveAt(mogelijkheden[mogelijkheden.Count - 1]);
-            opnieuwTekenen(elementen, s);
+            s.schets.elementen.RemoveAt(mogelijkheden[mogelijkheden.Count - 1]);
+            opnieuwTekenen(s.schets.elementen, s);
         }
 
     }
 
-    public void opnieuwTekenen(List<figuur> elementen, SchetsControl s)
+    public void opnieuwTekenen(List<Figuren> elementen, SchetsControl s)
     {
         Graphics gr = s.MaakBitmapGraphics();
         gr.FillRectangle(Brushes.White, 0, 0, s.Width, s.Height);
 
-        foreach (schets.figuur element in elementen)
+        foreach (Figuren element in elementen)
         {
             if (element.soort == "kader")
             {
@@ -122,8 +122,8 @@ public class TekstTool : StartpuntTool
             Point beginpunt = startpunt;
             startpunt.X += (int)sz.Width;
             Point eindpunt = startpunt;
-            figuur letter = new figuur() { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
-            elementen.Add(letter);
+            Figuren letter = new Figuren(soort, beginpunt, eindpunt, kleur) { soort = "tekst", beginpunt = beginpunt, eindpunt = eindpunt, kleur = "zwart" };
+            s.schets.elementen.Add(letter);
             s.Invalidate();
         }
     }
@@ -154,7 +154,7 @@ public abstract class TweepuntTool : StartpuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {   base.MuisLos(s, p);
         this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
-        s.schets.LijstMaken();
+        s.schets.elementen.Add(null);
         s.Invalidate();
     }
     public override void Letter(SchetsControl s, char c)
@@ -171,21 +171,20 @@ public class RechthoekTool : TweepuntTool
 {
     public override string ToString() { return "kader"; }
 
-    public override void MuisLos(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
-        s.schets.elementen;
-        s.Invalidate();
-    }
 
     public override void Bezig(Graphics g, Point p1, Point p2)
     {   g.DrawRectangle(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
-        figuur kader = new figuur() { soort = "kader", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        elementen.Add(kader);
     }
+    public override void MuisLos(SchetsControl s, Point p)
+    {
+        base.MuisLos(s, p);
+        Figuren kader = new figuur() { soort = "kader", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
+        s.schets.elementen.Add(kader);
+        s.Invalidate();
+    }
+
 }
-    
+
 public class VolRechthoekTool : RechthoekTool
 {
     public override string ToString() { return "vlak"; }
@@ -193,7 +192,7 @@ public class VolRechthoekTool : RechthoekTool
     public override void Compleet(Graphics g, Point p1, Point p2)
     {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
         figuur vlak = new figuur() { soort = "vlak", beginpunt = p1, eindpunt = p2, kleur = "zwart" };
-        elementen.Add(vlak);
+        s.schets.elementen.Add(vlak);
     }
 }
 
