@@ -35,7 +35,7 @@ public class VlakGumTool : StartpuntTool
 
     public void bovensteElement(SchetsControl s, Point p)
     {
-        List<int> mogelijkheden = new List<int>();
+        List<int> mogelijkheden = new();
         int getal = s.schets.elementen.Count;
         Point klikpunt = p;
         int i = 0;
