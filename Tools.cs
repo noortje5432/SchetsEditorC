@@ -39,10 +39,7 @@ public class VlakGumTool : StartpuntTool
         int getal = s.schets.elementen.Count;
         Point klikpunt = p;
         int i = 0;
-        Graphics gr = s.MaakBitmapGraphics();
-        gr.FillRectangle(Brushes.White, 0, 0, s.Width, s.Height);
-        s.Invalidate();
-        /*while (i < getal)
+        while (i < getal)
         {
             if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && s.schets.elementen[i].eindpunt.X <= klikpunt.X)
             {
@@ -51,7 +48,7 @@ public class VlakGumTool : StartpuntTool
                     mogelijkheden.Add(i);
                 }
             }
-        }*/
+        }
 
         if (mogelijkheden.Count != 0)
         {
