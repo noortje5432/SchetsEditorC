@@ -54,4 +54,17 @@ public class Schets
         Bitmap bpm = new Bitmap(image1);
         bitmap = bpm;
     }
+
+    public class figuur
+    {
+        public string soort { get; set; }
+        public Point beginpunt { get; set; }
+        public Point eindpunt { get; set; }
+        public string kleur { get; set; }
+
+    }
+    public void LijstMaken()
+    {
+        List<figuur> elementen = new List<figuur>();
+    }
 }

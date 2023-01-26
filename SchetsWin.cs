@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
 
+
 public class SchetsWin : Form
 {   
     MenuStrip menuStrip;
@@ -52,21 +53,15 @@ public class SchetsWin : Form
 
     public void open(object sender, EventArgs e)               //nieuw
     {
-        // Graphics gr = Graphics.FromImage(Scherm.bitmap);
-        // gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
         OpenFileDialog dialoog = new OpenFileDialog();
         dialoog.Filter = "Files|*.Png|Alle files|*.*";
         dialoog.Title = "Afbeelding openen...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
-            //SchetsWin s = new SchetsWin();
-            //s.MdiParent = this;
+            //SchetsWin s = new SchetsWin();                    Dit moet er nog in, maar openen moet ook ergens anders staan
+            //s.MdiParent = this;                               maar dat lukt nog even niet.
             schetscontrol.brugb(dialoog.FileName);
             //s.Show();
-            /*Graphics gr = Graphics.FromImage(Schets.bitmap);
-            gr.MdiParent = this;
-            gr.LeesVanFile(dialoog.FileName);
-            gr.Show();*/
         }
     }
 
@@ -85,6 +80,7 @@ public class SchetsWin : Form
                                 , new VolEllipsTool()
                                 , new TekstTool()
                                 , new GumTool()
+                                , new VlakGumTool()
                                 };
         String[] deKleuren = { "Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan" };
 
