@@ -54,7 +54,7 @@ public class SchetsWin : Form
     public void open(object sender, EventArgs e)               //nieuw
     {
         OpenFileDialog dialoog = new OpenFileDialog();
-        dialoog.Filter = "Files|*.Png|Alle files|*.*";
+        dialoog.Filter = "Afbeeldingen (*.PNG;*.JPG;*.BMP)|*.PNG;*.JPG;*.BMP";  
         dialoog.Title = "Afbeelding openen...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
