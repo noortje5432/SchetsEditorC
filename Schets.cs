@@ -10,6 +10,8 @@ public class Schets
 {
     private Bitmap bitmap;
     public List<Figuren> elementen = new List<Figuren>();
+    public List<string> nieuw = new List<string>();
+    public List<Figuren> figuren = new List<Figuren>();
 
     public Schets()
     {
@@ -63,7 +65,7 @@ public class Schets
     {
         TextWriter tw = new StreamWriter(bestandNaam);
 
-        foreach (Figuren i in elementen)
+        foreach (Figuren i in figuren)
             tw.WriteLine(string.Format("soort: {0} - beginpunt: {1} - eindpunt: {2} - kleur: {3}", i.soort, i.beginpunt.ToString(), i.eindpunt.ToString(), i.kleur));
 
         tw.Close();
@@ -73,9 +75,13 @@ public class Schets
     public void ImporteerVanTekst(string bestandNaam)
     {
         string BestandInhoud = File.ReadAllText(bestandNaam);
-        String[] seperator = {"soort: ", " - beginpunt: {X=", ",Y=", "} - eindpunt: {X=", ",Y=", "} - kleur: Color [", "]" };
+        String[] seperator = { "soort: ", " - beginpunt: {X=", ",Y=", "} - eindpunt: {X=", ",Y=", "} - kleur: " };
         List<string> element = BestandInhoud.Split(seperator, StringSplitOptions.RemoveEmptyEntries).ToList();
-        List<Figuren> figuren = new List<Figuren>();
+        /*foreach (string s in element)
+        {
+            nieuw.Add(s);
+        }*/
+        //List<Figuren> figuren = new List<Figuren>();
         for (int i = 0; i < element.Count; i += 6) 
         {
             int xb = int.Parse(element[i + 1]);
@@ -88,5 +94,16 @@ public class Schets
             figuren.Add(new Figuren(element[i], begin, eind, kleur));
         }
         
+    }
+
+    public void ExporteerNaarTekst2(string bestandNaam)
+    {
+        TextWriter tw = new StreamWriter(bestandNaam);
+
+        foreach (string i in nieuw)
+            tw.WriteLine(i);
+
+        tw.Close();
+
     }
 }
