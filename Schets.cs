@@ -77,11 +77,6 @@ public class Schets
         string BestandInhoud = File.ReadAllText(bestandNaam);
         String[] seperator = { "soort: ", " - beginpunt: {X=", ",Y=", "} - eindpunt: {X=", ",Y=", "} - kleur: " };
         List<string> element = BestandInhoud.Split(seperator, StringSplitOptions.RemoveEmptyEntries).ToList();
-        /*foreach (string s in element)
-        {
-            nieuw.Add(s);
-        }*/
-        //List<Figuren> figuren = new List<Figuren>();
         for (int i = 0; i < element.Count; i += 6) 
         {
             int xb = int.Parse(element[i + 1]);
@@ -94,16 +89,5 @@ public class Schets
             figuren.Add(new Figuren(element[i], begin, eind, kleur));
         }
         
-    }
-
-    public void ExporteerNaarTekst2(string bestandNaam)
-    {
-        TextWriter tw = new StreamWriter(bestandNaam);
-
-        foreach (string i in nieuw)
-            tw.WriteLine(i);
-
-        tw.Close();
-
     }
 }
