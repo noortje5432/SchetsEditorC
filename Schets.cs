@@ -9,7 +9,7 @@ using System.Linq;
 public class Schets
 {
     private Bitmap bitmap;
-    public List<Figuren> elementen = new List<Figuren>();
+    public List<Figuren> elementen = new List<Figuren>(); //
     public List<string> nieuw = new List<string>();
     public List<Figuren> figuren = new List<Figuren>();
 
