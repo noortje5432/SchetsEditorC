@@ -9,13 +9,12 @@ using System.Linq;
 public class Schets
 {
     private Bitmap bitmap;
-    public List<Figuren> elementen = new List<Figuren>(); //
-    public List<string> nieuw = new List<string>();
-    public List<Figuren> figuren = new List<Figuren>();
+    public List<Figuren> elementen = new List<Figuren>(); //Hier wordt een list aangemaakt die gebruikt wordt door de gum.
+    public List<Figuren> figuren = new List<Figuren>(); // Hier wordt een list aangemaakt die gebruikt wordt door de Opslaan en Openen als lijst
 
     public Schets()
     {
-        bitmap = new Bitmap(1, 1);
+        bitmap = new Bitmap(1, 1);  
     }
     public Graphics BitmapGraphics
     {
@@ -49,37 +48,37 @@ public class Schets
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
     }
 
-    public void schrijfNaarFile(string Text)                      //nieuw
-    {
+    public void schrijfNaarFile(string Text)                      //Hier wordt de methode aangemaakt die schrijft naar de file. Alle files die gesaved
+    {                                                              // maken gebruik van deze methode.
         bitmap.Save(Text, ImageFormat.Png);
     }
 
-    public void LeesVanFile(string bestandNaam)
-    {
+    public void LeesVanFile(string bestandNaam)                 //Hier wordt nog een methode aangemaakt die de opgeslagen files kan openen. 
+    {                                                              //Deze file is een image en wordt hier omgezet naar een bitmap zodat deze in het programma bewerkt kan worden.
         Image image1 = Image.FromFile(bestandNaam);
         Bitmap bpm = new Bitmap(image1);
         bitmap = bpm;
     }
 
-    public void ExporteerNaarTekst(string bestandNaam)
-    {
-        TextWriter tw = new StreamWriter(bestandNaam);
-
-        foreach (Figuren i in figuren)
+    public void ExporteerNaarTekst(string bestandNaam)          //In deze methode wordt een tekst aangemaakt die alle getekende en getypte acties weergeven.
+    {                                                           //Hiervoor wordt de constructor klasse figuren gebruikt. 
+        TextWriter tw = new StreamWriter(bestandNaam);          //Dit is handig want als deze file later weer geopend wordt dan wordt alles opnieuw "getekend"
+                                                                //en kan dus alles opnieuw bewerkt worden.
+        foreach (Figuren i in elementen)
             tw.WriteLine(string.Format("soort: {0} - beginpunt: {1} - eindpunt: {2} - kleur: {3}", i.soort, i.beginpunt.ToString(), i.eindpunt.ToString(), i.kleur));
-
+                            //Hier wordt dus het format van figuren uitgeprint.
         tw.Close();
 
     }
 
-    public void ImporteerVanTekst(string bestandNaam)
-    {
-        string BestandInhoud = File.ReadAllText(bestandNaam);
+    public void ImporteerVanTekst(string bestandNaam)           //In deze methode wordt de bovengenoemde tekstfile uitgelezen. 
+    {                                                           //De tekstfile wordt eerst geconveteerd naar een list in de vorm van figuren en wordt daarna opnieuw getekend.
+        string BestandInhoud = File.ReadAllText(bestandNaam);   
         String[] seperator = { "soort: ", " - beginpunt: {X=", ",Y=", "} - eindpunt: {X=", ",Y=", "} - kleur: " };
         List<string> element = BestandInhoud.Split(seperator, StringSplitOptions.RemoveEmptyEntries).ToList();
         for (int i = 0; i < element.Count; i += 6) 
         {
-            int xb = int.Parse(element[i + 1]);
+            int xb = int.Parse(element[i + 1]);     //Hier worden alle woorden uit de string opnieuw gekoppeld als elementen.
             int yb = int.Parse(element[i + 2]);
             int xe = int.Parse(element[i + 3]);
             int ye = int.Parse(element[i + 4]);
