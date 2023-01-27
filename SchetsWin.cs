@@ -99,7 +99,6 @@ public class SchetsWin : Form
                                 , new EllipsTool()
                                 , new VolEllipsTool()
                                 , new TekstTool()
-                                , new GumTool()
                                 , new VlakGumTool()
                                 };
         String[] deKleuren = { "Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan" };
