@@ -31,41 +31,38 @@ public class SchetsWin : Form
         this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
     }
 
-    private void opslaan(object o, EventArgs ea)        //nieuw
-    {
-        if (Text == "")
-            opslaanAls(o, ea);
+    private void opslaan(object o, EventArgs ea)        // In deze methode wordt het dropdownitem opslaan beschreven.
+    {                                                   // Wanneer er op opslaan gedrukt wordt zal de code in werking gesteld worden
+        if (Text == "")                                 // Als de file al een keer opgeslagen is zal deze opniew opgeslagen en overgeschreven worden.
+            opslaanAls(o, ea);                          // Als de file nog niet is opgeslagen, zal het "opslaan als" menu openen.
         else
             schetscontrol.brug(Text);
     }
 
-    public void opslaanAls(object o, EventArgs ea)     //nieuw
-    {
+    public void opslaanAls(object o, EventArgs ea)     //Hier wordt de methode opslaanAls beschreven. Wanneer er op de dropdownitem gedrukt wordt zal er een SaveFileDialog openen.
+    {                                                       //Hier kan de bitmap als jpg, bmp, png en als txt file opgeslagen worden.
         SaveFileDialog dialoog = new SaveFileDialog();
         dialoog.Filter = "Afbeelding (*.PNG)|*.PNG|Afbeelding (*.JPG)|*.JPG|Afbeelding (*.BMP)|*.BMP|Tekst file(*.TXT)|*.TXT"; 
         dialoog.Title = "Afbeelding opslaan als...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
             Text = dialoog.FileName;
-            schetscontrol.brug(Text);
+            schetscontrol.brug(Text);   //Hier wordt brug gebruikt als overbrugging naar de klasse SchetsControl
         }
     }
 
-    public void open(object sender, EventArgs e)               //nieuw
-    {
+    public void open(object sender, EventArgs e)               //In deze methode kunnen afbeeldingen, en tekeningen die hierboven zijn gemaakt en opgeslagen geopend worden.
+    {                                                           //Dit wordt gedaan met de OpenFileDialog.
         OpenFileDialog dialoog = new OpenFileDialog();
         dialoog.Filter = "Afbeeldingen (*.PNG;*.JPG;*.BMP;*.TXT)|*.PNG;*.JPG;*.BMP;*.TXT";  
         dialoog.Title = "Afbeelding openen...";
         if (dialoog.ShowDialog() == DialogResult.OK)
-        {
-            //SchetsWin s = new SchetsWin();                   
-           // s.MdiParent = this;                              
-            schetscontrol.brugb(dialoog.FileName);
-            //s.Show();
+        {                          
+            schetscontrol.brugb(dialoog.FileName);  //brugb wordt hier gebruikt als overbrugging naar SchetsControl.
         }
     }
 
-    public void opslaanAlsLijst(object o, EventArgs ea)
+    public void opslaanAlsLijst(object o, EventArgs ea)     //In deze methode 
     {
         SaveFileDialog dialoog = new SaveFileDialog();
         dialoog.Filter = "Tekst file(*.TXT)|*.TXT";
