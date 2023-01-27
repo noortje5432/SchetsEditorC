@@ -10,6 +10,7 @@ public interface ISchetsTool
     void MuisVast(SchetsControl s, Point p);
     void MuisDrag(SchetsControl s, Point p);
     void MuisLos(SchetsControl s, Point p);
+    void MuisLos2(SchetsControl s, Point p);
     void Letter(SchetsControl s, char c);
 }
 
@@ -25,6 +26,11 @@ public abstract class StartpuntTool : ISchetsTool
     {   
         kwast = new SolidBrush(s.PenKleur);
     }
+
+    public virtual void MuisLos2(SchetsControl s, Point p)
+    {
+    }
+
     public abstract void MuisDrag(SchetsControl s, Point p);
     public abstract void Letter(SchetsControl s, char c);
 }
@@ -41,27 +47,29 @@ public class VlakGumTool : StartpuntTool
         int i = 0;
         while (i < getal)
         {
-            if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && s.schets.elementen[i].eindpunt.X <= klikpunt.X)
+            if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && klikpunt.X <= s.schets.elementen[i].eindpunt.X)
             {
-                if (s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && s.schets.elementen[i].eindpunt.Y <= klikpunt.Y)
+                opnieuwTekenen(s.schets.elementen, s);
+                if (s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && klikpunt.Y <= s.schets.elementen[i].eindpunt.Y)
                 {
                     mogelijkheden.Add(i);
                 }
             }
+            i++;
         }
 
-        if (mogelijkheden.Count != 0)
+        /*if (mogelijkheden.Count != 0)
         {
             s.schets.elementen.RemoveAt(mogelijkheden[mogelijkheden.Count - 1]);
             opnieuwTekenen(s.schets.elementen, s);
-        }
+        }*/
 
     }
 
     public void opnieuwTekenen(List<Figuren> elementen, SchetsControl s)
     {
         Graphics gr = s.MaakBitmapGraphics();
-        gr.FillRectangle(Brushes.White, 0, 0, s.Width, s.Height);
+        gr.FillRectangle(Brushes.Black, 0, 0, s.Width, s.Height);
 
         foreach (Figuren element in elementen)
         {
@@ -89,13 +97,17 @@ public class VlakGumTool : StartpuntTool
             {
 
             }
+            s.Invalidate();
         }
-        s.Invalidate();
+        
     }
 
     public override void Letter(SchetsControl s, char c) { }
-
     public override void MuisDrag(SchetsControl s, Point p)
+    {
+    }
+
+    public override void MuisLos(SchetsControl s, Point p)
     {
         bovensteElement(s, p);
     }
@@ -154,8 +166,10 @@ public abstract class TweepuntTool : StartpuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {   base.MuisLos(s, p);
         this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
-        s.schets.elementen.Add(null);
         s.Invalidate();
+    }
+    public override void MuisLos2(SchetsControl s,Point p)
+    {
     }
     public override void Letter(SchetsControl s, char c)
     {
@@ -193,7 +207,7 @@ public class VolRechthoekTool : RechthoekTool
     {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));;
     }
 
-    public override void MuisLos(SchetsControl s, Point p)
+    public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
         Figuren vlak = new Figuren("vlak", this.startpunt, p, "zwart");
@@ -231,7 +245,7 @@ public class VolEllipsTool : EllipsTool
         g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
     }
 
-    public override void MuisLos(SchetsControl s, Point p)
+    public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
         Figuren bol = new Figuren("bol", this.startpunt, p, "zwart");
@@ -267,7 +281,7 @@ public class PenTool : LijnTool
         this.MuisVast(s, p);
     }
 
-    public override void MuisLos(SchetsControl s, Point p)
+    public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
         Figuren pen = new Figuren("pen", this.startpunt, p, "zwart");
