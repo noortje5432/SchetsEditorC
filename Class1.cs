@@ -40,15 +40,14 @@ public class OpnieuwTekenen
             }
             if (element.soort.Length == 1)
             {
-                Graphics g = s.MaakBitmapGraphics();
                 Font font = new Font("Tahoma", 40);
                 SizeF sz =
-                g.MeasureString(element.soort, font, element.beginpunt, StringFormat.GenericTypographic);
-                g.DrawString(element.soort, font, kwast,
+                gr.MeasureString(element.soort, font, element.beginpunt, StringFormat.GenericTypographic);
+                gr.DrawString(element.soort, font, kwast,
                                                 element.beginpunt, StringFormat.GenericTypographic);
             }
 
         }
-        s.Invalidate();
+        bitmap.Invalidate();
     }
 }
