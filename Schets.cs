@@ -64,7 +64,7 @@ public class Schets
     {                                                           //Hiervoor wordt de constructor klasse figuren gebruikt. 
         TextWriter tw = new StreamWriter(bestandNaam);          //Dit is handig want als deze file later weer geopend wordt dan wordt alles opnieuw "getekend"
                                                                 //en kan dus alles opnieuw bewerkt worden.
-        foreach (Figuren i in elementen)
+        foreach (Figuren i in figuren)
             tw.WriteLine(string.Format("soort: {0} - beginpunt: {1} - eindpunt: {2} - kleur: {3}", i.soort, i.beginpunt.ToString(), i.eindpunt.ToString(), i.kleur));
                             //Hier wordt dus het format van figuren uitgeprint.
         tw.Close();
@@ -85,7 +85,9 @@ public class Schets
             Point begin = new Point(xb, yb);
             Point eind = new Point(xe, ye);
             Color kleur = (Color)Color.FromName(element[i + 5]);
-            figuren.Add(new Figuren(element[i], begin, eind, kleur));
+            //Figuren nieuw = new Figuren
+            figuren.Add(new Figuren(element[i], begin, eind, kleur) {soort = element[i], beginpunt = begin, eindpunt = eind, kleur = kleur });
+            //figuren.Add(new Figuren("hoi", begin, eind, (Color)Color.Black));
         }
         
     }
