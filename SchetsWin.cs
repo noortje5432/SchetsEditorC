@@ -42,7 +42,7 @@ public class SchetsWin : Form
     public void opslaanAls(object o, EventArgs ea)     //nieuw
     {
         SaveFileDialog dialoog = new SaveFileDialog();
-        dialoog.Filter = "Afbeelding (*.PNG)|*.PNG|Afbeelding (*.JPG)|*.JPG*|Afbeelding (*.BMP)|*.BMP"; 
+        dialoog.Filter = "Afbeelding (*.PNG)|*.PNG|Afbeelding (*.JPG)|*.JPG|Afbeelding (*.BMP)|*.BMP|Tekst file(*.TXT)|*.TXT"; 
         dialoog.Title = "Afbeelding opslaan als...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
@@ -58,8 +58,8 @@ public class SchetsWin : Form
         dialoog.Title = "Afbeelding openen...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
-            //SchetsWin s = new SchetsWin();                    Dit moet er nog in, maar openen moet ook ergens anders staan
-            //s.MdiParent = this;                               maar dat lukt nog even niet.
+            //SchetsWin s = new SchetsWin();                   
+           // s.MdiParent = this;                              
             schetscontrol.brugb(dialoog.FileName);
             //s.Show();
         }
