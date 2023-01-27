@@ -42,7 +42,7 @@ public class SchetsWin : Form
     public void opslaanAls(object o, EventArgs ea)     //nieuw
     {
         SaveFileDialog dialoog = new SaveFileDialog();
-        dialoog.Filter = "Afbeelding (*.PNG)|*.PNG|Afbeelding (*.JPG)|*.JPG*|Afbeelding (*.BMP)|*.BMP"; 
+        dialoog.Filter = "Afbeelding (*.PNG)|*.PNG|Afbeelding (*.JPG)|*.JPG|Afbeelding (*.BMP)|*.BMP|Tekst file(*.TXT)|*.TXT"; 
         dialoog.Title = "Afbeelding opslaan als...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
