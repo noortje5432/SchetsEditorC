@@ -54,6 +54,7 @@ public class SchetsControl : UserControl
         penkleur = Color.FromName(kleurNaam);
     }
 
+    //Er zijn een aantal 'bruggen' gemaakt, om van SchetsWin naar Schets te gaan. 
     public void brug(string Text)
     {
         schets.schrijfNaarFile(Text);
