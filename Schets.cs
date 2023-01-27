@@ -62,8 +62,8 @@ public class Schets
     {
         TextWriter tw = new StreamWriter(bestandNaam);
 
-        foreach (Figuren s in elementen)
-            tw.WriteLine(s);
+        foreach (Figuren i in elementen)
+            tw.WriteLine(string.Format("soort: {0} - beginpunt: {1} - eindpunt: {2} - kleur: {3}", i.soort, i.beginpunt.ToString(), i.eindpunt.ToString(), i.kleur));
 
         tw.Close();
         //File.WriteAllLines("elementen.txt", elementen);
