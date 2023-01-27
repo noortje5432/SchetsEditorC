@@ -11,8 +11,8 @@ using System.Threading.Tasks;
         public string soort { get; set; }
         public Point beginpunt { get; set; }
         public Point eindpunt { get; set; }
-        public string kleur { get; set; }
-        public Figuren(string soort, Point beginbunt, Point eindpunt, string kleur)
+        public Color kleur { get; set; }
+        public Figuren(string soort, Point beginbunt, Point eindpunt, Color kleur)
         {
             
         }
