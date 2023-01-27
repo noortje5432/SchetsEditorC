@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -57,8 +58,14 @@ public class Schets
         bitmap = bpm;
     }
 
-    public void ExporteerNaarTekst()
+    public void ExporteerNaarTekst(string bestandNaam)
     {
-        File.WriteAllLines("elementen.txt", elementen);
+        TextWriter tw = new StreamWriter(bestandNaam);
+
+        foreach (Figuren s in elementen)
+            tw.WriteLine(s);
+
+        tw.Close();
+        //File.WriteAllLines("elementen.txt", elementen);
     }
 }

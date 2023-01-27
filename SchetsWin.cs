@@ -67,7 +67,14 @@ public class SchetsWin : Form
 
     public void opslaanAlsLijst(object o, EventArgs ea)
     {
-        schetscontrol.brugc();
+        SaveFileDialog dialoog = new SaveFileDialog();
+        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";
+        dialoog.Title = "Afbeelding opslaan als...";
+        if (dialoog.ShowDialog() == DialogResult.OK)
+        {
+            Text = dialoog.FileName;
+            schetscontrol.brugc(Text);
+        }
     }
 
     private void afsluiten(object obj, EventArgs ea)

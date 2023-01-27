@@ -14,7 +14,7 @@ using System.Threading.Tasks;
         public string kleur { get; set; }
         public Figuren(string soort, Point beginbunt, Point eindpunt, string kleur)
         {
-
+            
         }
     }
 
