@@ -85,9 +85,7 @@ public class Schets
             Point begin = new Point(xb, yb);
             Point eind = new Point(xe, ye);
             Color kleur = (Color)Color.FromName(element[i + 5]);
-            //Figuren nieuw = new Figuren
             figuren.Add(new Figuren(element[i], begin, eind, kleur) {soort = element[i], beginpunt = begin, eindpunt = eind, kleur = kleur });
-            //figuren.Add(new Figuren("hoi", begin, eind, (Color)Color.Black));
         }
         
     }
