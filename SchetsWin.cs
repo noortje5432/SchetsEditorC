@@ -62,26 +62,26 @@ public class SchetsWin : Form
         }
     }
 
-    public void opslaanAlsLijst(object o, EventArgs ea)     //In deze methode 
-    {
-        SaveFileDialog dialoog = new SaveFileDialog();
-        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";
+    public void opslaanAlsLijst(object o, EventArgs ea)     //In deze methode wordt de bitmap op een speciale manier opgeslagen.
+    {                                                       //Hier worden namelijk dingen die zijn getekend opgeslagen, met de letterlijke code van het "schetsen".
+        SaveFileDialog dialoog = new SaveFileDialog();      
+        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";         //Dit wordt dan dus ook opgeslagen als tekstfile.
         dialoog.Title = "Afbeelding opslaan als...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
             Text = dialoog.FileName;
-            schetscontrol.brugc(Text);
+            schetscontrol.brugc(Text);                      //Hier wordt opnieuw een overbrugging gebruikt om de methode te koppelen aan schetscontrol.
         }
     }
 
-    public void OpenLijst(object o, EventArgs ea)
-    {
-        OpenFileDialog dialoog = new OpenFileDialog();
-        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";
+    public void OpenLijst(object o, EventArgs ea)          //In deze methode kunnen bestanden geopend worden die hierboven beschreven zijn. 
+    {                                                      //De code van het schetsen wordt hier geopend door middel van een OpenFileDialog.
+        OpenFileDialog dialoog = new OpenFileDialog();  
+        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";     //Deze bestanden worden geopend als tekstfile.
         dialoog.Title = "Open lijst";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
-            schetscontrol.brugd(dialoog.FileName);
+            schetscontrol.brugd(dialoog.FileName);         //Hier wordt opnieuw een overbrugging gebruikt om de methode te koppelen aan schetscontrol.
         }
     }
 
@@ -143,9 +143,9 @@ public class SchetsWin : Form
     {   
         ToolStripMenuItem menu = new ToolStripMenuItem("File");
         menu.MergeAction = MergeAction.MatchOnly;
-        menu.DropDownItems.Add("Opslaan", null, this.opslaan);                   //nieuw
-        menu.DropDownItems.Add("Opslaan als...", null, this.opslaanAls);        //nieuw
-        menu.DropDownItems.Add("Open...", null, this.open);                     //nieuw
+        menu.DropDownItems.Add("Opslaan", null, this.opslaan);                   //Hier worden de verschillende dropdownitems toegevoegd aan het menu.
+        menu.DropDownItems.Add("Opslaan als...", null, this.opslaanAls);        //Wij hebben hier het opslaan en openen aan toegevoegd.
+        menu.DropDownItems.Add("Open...", null, this.open);                     
         menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
         menu.DropDownItems.Add("OpslaanAlsLijst", null, this.opslaanAlsLijst);
         menu.DropDownItems.Add("OpenLijst", null, this.OpenLijst);
