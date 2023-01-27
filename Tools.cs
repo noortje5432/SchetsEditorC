@@ -134,7 +134,8 @@ public class TekstTool : StartpuntTool
             Point beginpunt = this.startpunt;
             startpunt.X += (int)sz.Width;
             Point eindpunt = startpunt;
-            Figuren letter = new Figuren("tekst", beginpunt, eindpunt, "zwart");
+            Figuren letter = new Figuren("tekst", beginpunt, eindpunt, "zwart")
+                    { soort = tekst, beginpunt = this.startpunt, eindpunt = eindpunt, kleur = "zwart" };
             s.schets.elementen.Add(letter);
             s.Invalidate();
         }
@@ -192,7 +193,8 @@ public class RechthoekTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren kader = new Figuren("kader", this.startpunt, p, "Zwart"); 
+        Figuren kader = new Figuren("kader", this.startpunt, p, "Zwart")
+                { soort = "kader", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" }; 
         s.schets.elementen.Add(kader);
         //s.Invalidate();
     }
@@ -209,7 +211,8 @@ public class VolRechthoekTool : RechthoekTool
     public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren vlak = new Figuren("vlak", this.startpunt, p, "zwart");
+        Figuren vlak = new Figuren("vlak", this.startpunt, p, "zwart")
+                { soort = "vlak", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" };
         s.schets.elementen.Add(vlak);
         //s.Invalidate();
     }
@@ -229,7 +232,8 @@ public class EllipsTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren ellips = new Figuren("ellips", this.startpunt, p, "zwart");
+        Figuren ellips = new Figuren("ellips", this.startpunt, p, "zwart")
+                { soort = "ellips", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" };
         s.schets.elementen.Add(ellips);
         s.Invalidate();
     }
@@ -247,7 +251,8 @@ public class VolEllipsTool : EllipsTool
     public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren bol = new Figuren("bol", this.startpunt, p, "zwart");
+        Figuren bol = new Figuren("bol", this.startpunt, p, "zwart")
+                { soort = "bol", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" };
         s.schets.elementen.Add(bol);
         s.Invalidate();
     }
@@ -265,7 +270,8 @@ public class LijnTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren lijn = new Figuren("lijn", this.startpunt, p, "zwart");
+        Figuren lijn = new Figuren("lijn", this.startpunt, p, "zwart")
+                { soort = "lijn", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" };
         s.schets.elementen.Add(lijn);
         s.Invalidate();
     }
@@ -283,7 +289,8 @@ public class PenTool : LijnTool
     public override void MuisLos2(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren pen = new Figuren("pen", this.startpunt, p, "zwart");
+        Figuren pen = new Figuren("pen", this.startpunt, p, "zwart")
+                { soort = "pen", beginpunt = this.startpunt, eindpunt = p, kleur = "zwart" };
         s.schets.elementen.Add(pen);
         s.Invalidate();
     }
