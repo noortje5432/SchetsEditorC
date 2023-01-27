@@ -56,4 +56,9 @@ public class Schets
         Bitmap bpm = new Bitmap(image1);
         bitmap = bpm;
     }
+
+    public void ExporteerNaarTekst()
+    {
+        File.WriteAllLines("elementen.txt", elementen);
+    }
 }

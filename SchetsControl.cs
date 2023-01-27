@@ -63,4 +63,9 @@ public class SchetsControl : UserControl
     {
         schets.LeesVanFile(bestandnaam);
     }
+
+    public void brugc()
+    {
+        schets.ExporteerNaarTekst();
+    }
 }

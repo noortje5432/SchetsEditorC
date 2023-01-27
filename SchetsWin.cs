@@ -65,6 +65,11 @@ public class SchetsWin : Form
         }
     }
 
+    public void opslaanAlsLijst(object o, EventArgs ea)
+    {
+        schetscontrol.brugc();
+    }
+
     private void afsluiten(object obj, EventArgs ea)
     {
         this.Close();
@@ -127,6 +132,7 @@ public class SchetsWin : Form
         menu.DropDownItems.Add("Opslaan als...", null, this.opslaanAls);        //nieuw
         menu.DropDownItems.Add("Open...", null, this.open);                     //nieuw
         menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
+        menu.DropDownItems.Add("OpslaanAlsLijst", null, this.opslaanAlsLijst);
         menuStrip.Items.Add(menu);
     }
 
