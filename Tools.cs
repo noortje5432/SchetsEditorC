@@ -29,7 +29,7 @@ public abstract class StartpuntTool : ISchetsTool
     public abstract void MuisDrag(SchetsControl s, Point p);
     public abstract void Letter(SchetsControl s, char c);
 }
-
+/*In VlakGumTool wordt */
 public class VlakGumTool : StartpuntTool
 {
     public override string ToString() { return "gum"; }
