@@ -38,6 +38,7 @@ public class Schets
     {
         Graphics gr = Graphics.FromImage(bitmap);
         gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+        elementen.Clear();
     }
     public void Roteer()
     {

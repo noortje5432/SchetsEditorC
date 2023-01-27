@@ -131,7 +131,7 @@ public class TekstTool : StartpuntTool
             gr.DrawString(tekst, font, kwast,
                                             this.startpunt, StringFormat.GenericTypographic);
             // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
-            Point beginpunt = startpunt;
+            Point beginpunt = this.startpunt;
             startpunt.X += (int)sz.Width;
             Point eindpunt = startpunt;
             Figuren letter = new Figuren("tekst", beginpunt, eindpunt, "zwart");
@@ -194,9 +194,8 @@ public class RechthoekTool : TweepuntTool
         base.MuisLos(s, p);
         Figuren kader = new Figuren("kader", this.startpunt, p, "Zwart"); 
         s.schets.elementen.Add(kader);
-        s.Invalidate();
+        //s.Invalidate();
     }
-
 }
 
 public class VolRechthoekTool : RechthoekTool
@@ -212,7 +211,7 @@ public class VolRechthoekTool : RechthoekTool
         base.MuisLos(s, p);
         Figuren vlak = new Figuren("vlak", this.startpunt, p, "zwart");
         s.schets.elementen.Add(vlak);
-        s.Invalidate();
+        //s.Invalidate();
     }
 }
 
