@@ -77,6 +77,17 @@ public class SchetsWin : Form
         }
     }
 
+    public void OpenLijst(object o, EventArgs ea)
+    {
+        OpenFileDialog dialoog = new OpenFileDialog();
+        dialoog.Filter = "Tekst file(*.TXT)|*.TXT";
+        dialoog.Title = "Open lijst";
+        if (dialoog.ShowDialog() == DialogResult.OK)
+        {
+            schetscontrol.brugd(dialoog.FileName);
+        }
+    }
+
     private void afsluiten(object obj, EventArgs ea)
     {
         this.Close();
@@ -140,6 +151,7 @@ public class SchetsWin : Form
         menu.DropDownItems.Add("Open...", null, this.open);                     //nieuw
         menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
         menu.DropDownItems.Add("OpslaanAlsLijst", null, this.opslaanAlsLijst);
+        menu.DropDownItems.Add("OpenLijst", null, this.OpenLijst);
         menuStrip.Items.Add(menu);
     }
 

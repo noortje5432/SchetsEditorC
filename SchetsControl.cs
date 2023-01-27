@@ -68,4 +68,9 @@ public class SchetsControl : UserControl
     {
         schets.ExporteerNaarTekst(bestandNaam);
     }
+
+    public void brugd(string bestandNaam)
+    {
+        schets.ImporteerVanTekst(bestandNaam);
+    }
 }

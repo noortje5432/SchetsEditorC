@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 public class Schets
 {
@@ -66,6 +67,13 @@ public class Schets
             tw.WriteLine(string.Format("soort: {0} - beginpunt: {1} - eindpunt: {2} - kleur: {3}", i.soort, i.beginpunt.ToString(), i.eindpunt.ToString(), i.kleur));
 
         tw.Close();
-        //File.WriteAllLines("elementen.txt", elementen);
+
+    }
+
+    public void ImporteerVanTekst(string bestandNaam)
+    {
+        string BestandInhoud = File.ReadAllText(bestandNaam);
+        String[] seperator = {"soort: ", " - beginpunt: {", "} - eindpunt: {", "} - kleur: " };
+        List<string> element = BestandInhoud.Split(seperator, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 }
