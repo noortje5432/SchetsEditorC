@@ -29,7 +29,15 @@ public abstract class StartpuntTool : ISchetsTool
     public abstract void MuisDrag(SchetsControl s, Point p);
     public abstract void Letter(SchetsControl s, char c);
 }
-
+/*In VlakGumTool wordt gebruik gemaakt van het element
+ waar geklikt is. Hiermee wordt gekeken 'binnen' welke figuren
+dit element valt. Van de nummers (hoeveelste element van de
+lijst) wordt een nieuwe lijst mogelijkheden gemaakt. Dit gebeurt in de eerste 
+while-loop. Vervolgens wordt gekeken ok de lijst mogelijkheden
+leeg is. Is dit het geval, dan gebeurt er niks. Anders wordt 
+het laatste element van de lijst mogelijkheden genomen en 
+het zoveelste element van de lijst met alle elementen wordt 
+verwijderd. Dit is dus het 'bovenste' element waarop geklikt wordt.*/
 public class VlakGumTool : StartpuntTool
 {
     public override string ToString() { return "gum"; }
@@ -63,6 +71,11 @@ public class VlakGumTool : StartpuntTool
 
     }
 
+    /*Nadat het bovenste element is verwijderd, wordt de bitmap 
+     leeggemaakt, door over de volledige window een witte
+    rechthoek te tekenen. Hier worden vervolgens alle overige
+    elementen weer opnieuw getekend. Als laatste wordt het 
+    scherm opnieuw geladen.*/
     public void opnieuwTekenen(List<Figuren> elementen, SchetsControl s)
     {
         Graphics gr = s.MaakBitmapGraphics();
@@ -164,6 +177,8 @@ public abstract class TweepuntTool : StartpuntTool
         pen.EndCap = LineCap.Round;
         return pen;
     }
+
+
     public override void MuisVast(SchetsControl s, Point p)
     {   base.MuisVast(s, p);
         kwast = Brushes.Gray;
@@ -172,6 +187,7 @@ public abstract class TweepuntTool : StartpuntTool
     {   s.Refresh();
         this.Bezig(s.CreateGraphics(), this.startpunt, p);
     }
+
     public override void MuisLos(SchetsControl s, Point p)
     {   base.MuisLos(s, p);
         this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
@@ -195,6 +211,10 @@ public class RechthoekTool : TweepuntTool
     public override void Bezig(Graphics g, Point p1, Point p2)
     {   g.DrawRectangle(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
     }
+
+    /*In MuisLos wordt op het moment dat de muis losgelaten is
+    een figuur aan de lijst elementen toegevoegd. Er wordt 
+    een naam, beginpunt, eindpunt en kleur meegegeven.*/
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
@@ -214,7 +234,7 @@ public class VolRechthoekTool : RechthoekTool
     }
 }
 
-//Nieuwe methodes cirkel en volcirkel
+//Nieuwe methodes ellips en bol.
 
 public class EllipsTool : TweepuntTool
 {
