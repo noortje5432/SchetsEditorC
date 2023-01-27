@@ -73,7 +73,20 @@ public class Schets
     public void ImporteerVanTekst(string bestandNaam)
     {
         string BestandInhoud = File.ReadAllText(bestandNaam);
-        String[] seperator = {"soort: ", " - beginpunt: {", "} - eindpunt: {", "} - kleur: " };
+        String[] seperator = {"soort: ", " - beginpunt: {X=", ",Y=", "} - eindpunt: {X=", ",Y=", "} - kleur: Color [", "]" };
         List<string> element = BestandInhoud.Split(seperator, StringSplitOptions.RemoveEmptyEntries).ToList();
+        List<Figuren> figuren = new List<Figuren>();
+        for (int i = 0; i < element.Count; i += 6) 
+        {
+            int xb = int.Parse(element[i + 1]);
+            int yb = int.Parse(element[i + 2]);
+            int xe = int.Parse(element[i + 3]);
+            int ye = int.Parse(element[i + 4]);
+            Point begin = new Point(xb, yb);
+            Point eind = new Point(xe, ye);
+            Color kleur = (Color)Color.FromName(element[i + 5]);
+            figuren.Add(new Figuren(element[i], begin, eind, kleur));
+        }
+        
     }
 }
