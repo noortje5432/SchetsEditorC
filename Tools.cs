@@ -116,11 +116,9 @@ public class VlakGumTool : StartpuntTool
                 g.MeasureString(element.soort, font, element.beginpunt, StringFormat.GenericTypographic);
                 g.DrawString(element.soort, font, kwast,
                                                 element.beginpunt, StringFormat.GenericTypographic);
-            }
-            
+            }  
         }
-        s.Invalidate();
-        
+        s.Invalidate();      
     }
 
     public override void Letter(SchetsControl s, char c) { }
