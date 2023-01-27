@@ -58,8 +58,8 @@ public class SchetsWin : Form
         dialoog.Title = "Afbeelding openen...";
         if (dialoog.ShowDialog() == DialogResult.OK)
         {
-            //SchetsWin s = new SchetsWin();                    Dit moet er nog in, maar openen moet ook ergens anders staan
-            //s.MdiParent = this;                               maar dat lukt nog even niet.
+            //SchetsWin s = new SchetsWin();                   
+           // s.MdiParent = this;                              
             schetscontrol.brugb(dialoog.FileName);
             //s.Show();
         }
