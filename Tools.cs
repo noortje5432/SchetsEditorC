@@ -10,7 +10,6 @@ public interface ISchetsTool
     void MuisVast(SchetsControl s, Point p);
     void MuisDrag(SchetsControl s, Point p);
     void MuisLos(SchetsControl s, Point p);
-    void MuisLos2(SchetsControl s, Point p);
     void Letter(SchetsControl s, char c);
 }
 
@@ -25,10 +24,6 @@ public abstract class StartpuntTool : ISchetsTool
     public virtual void MuisLos(SchetsControl s, Point p)
     {   
         kwast = new SolidBrush(s.PenKleur);
-    }
-
-    public virtual void MuisLos2(SchetsControl s, Point p)
-    {
     }
 
     public abstract void MuisDrag(SchetsControl s, Point p);
@@ -47,9 +42,11 @@ public class VlakGumTool : StartpuntTool
         int i = 0;
         while (i < getal)
         {
-            if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && klikpunt.X <= s.schets.elementen[i].eindpunt.X)
+            if (s.schets.elementen[i].beginpunt.X <= klikpunt.X && klikpunt.X <= s.schets.elementen[i].eindpunt.X
+               || s.schets.elementen[i].beginpunt.X >= klikpunt.X && klikpunt.X >= s.schets.elementen[i].eindpunt.X)
             {
-                if (s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && klikpunt.Y <= s.schets.elementen[i].eindpunt.Y)
+                if (s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && klikpunt.Y <= s.schets.elementen[i].eindpunt.Y
+                   || s.schets.elementen[i].beginpunt.Y <= klikpunt.Y && klikpunt.Y <= s.schets.elementen[i].eindpunt.Y)
                 {
                     //opnieuwTekenen(s.schets.elementen, s);
                     mogelijkheden.Add(i);
@@ -96,7 +93,16 @@ public class VlakGumTool : StartpuntTool
             }
             if (element.soort == "pen")
             {
-
+                gr.DrawLine(TweepuntTool.MaakPen(kwast, 3), element.beginpunt, element.eindpunt);
+            }
+            if (element.soort.Length == 1)
+            {
+                Graphics g = s.MaakBitmapGraphics();
+                Font font = new Font("Tahoma", 40);
+                SizeF sz =
+                g.MeasureString(element.soort, font, element.beginpunt, StringFormat.GenericTypographic);
+                g.DrawString(element.soort, font, kwast,
+                                                element.beginpunt, StringFormat.GenericTypographic);
             }
             
         }
@@ -127,17 +133,17 @@ public class TekstTool : StartpuntTool
         {
             Graphics gr = s.MaakBitmapGraphics();
             Font font = new Font("Tahoma", 40);
-            string tekst = c.ToString();
+            string tekstletter = c.ToString();
             SizeF sz =
-            gr.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-            gr.DrawString(tekst, font, kwast,
+            gr.MeasureString(tekstletter, font, this.startpunt, StringFormat.GenericTypographic);
+            gr.DrawString(tekstletter, font, kwast,
                                             this.startpunt, StringFormat.GenericTypographic);
             // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
             Point beginpunt = this.startpunt;
             startpunt.X += (int)sz.Width;
-            Point eindpunt = startpunt;
-            Figuren letter = new Figuren("tekst", beginpunt, eindpunt, s.PenKleur)
-                    { soort = tekst, beginpunt = this.startpunt, eindpunt = eindpunt, kleur = s.PenKleur };
+            Point eindpunt = new Point(beginpunt.X + (int)sz.Width, beginpunt.Y + (int)sz.Height);
+            Figuren letter = new Figuren(tekstletter, beginpunt, eindpunt, s.PenKleur)
+                    { soort = tekstletter, beginpunt = beginpunt, eindpunt = eindpunt, kleur = s.PenKleur };
             s.schets.elementen.Add(letter);
             s.Invalidate();
         }
@@ -171,9 +177,6 @@ public abstract class TweepuntTool : StartpuntTool
         this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
         s.Invalidate();
     }
-    public override void MuisLos2(SchetsControl s,Point p)
-    {
-    }
     public override void Letter(SchetsControl s, char c)
     {
     }
@@ -195,10 +198,10 @@ public class RechthoekTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren kader = new Figuren("kader", this.startpunt, p, s.PenKleur)
-                { soort = "kader", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur }; 
+        Figuren kader = new Figuren(ToString(), this.startpunt, p, s.PenKleur)
+                { soort = ToString(), beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur }; 
         s.schets.elementen.Add(kader);
-        //s.Invalidate();
+        s.Invalidate();
     }
 }
 
@@ -208,15 +211,6 @@ public class VolRechthoekTool : RechthoekTool
 
     public override void Compleet(Graphics g, Point p1, Point p2)
     {   g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));;
-    }
-
-    public override void MuisLos2(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        Figuren vlak = new Figuren("vlak", this.startpunt, p, s.PenKleur)
-                { soort = "vlak", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
-        s.schets.elementen.Add(vlak);
-        //s.Invalidate();
     }
 }
 
@@ -234,8 +228,8 @@ public class EllipsTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren ellips = new Figuren("ellips", this.startpunt, p, s.PenKleur)
-                { soort = "ellips", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
+        Figuren ellips = new Figuren(ToString(), this.startpunt, p, s.PenKleur)
+                { soort = (ToString()), beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
         s.schets.elementen.Add(ellips);
         s.Invalidate();
     }
@@ -249,16 +243,6 @@ public class VolEllipsTool : EllipsTool
     {
         g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
     }
-
-    public override void MuisLos2(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        Figuren bol = new Figuren("bol", this.startpunt, p, s.PenKleur)
-                { soort = "bol", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
-        s.schets.elementen.Add(bol);
-        s.Invalidate();
-    }
-
 }
 
 public class LijnTool : TweepuntTool
@@ -272,8 +256,8 @@ public class LijnTool : TweepuntTool
     public override void MuisLos(SchetsControl s, Point p)
     {
         base.MuisLos(s, p);
-        Figuren lijn = new Figuren("lijn", this.startpunt, p, s.PenKleur)
-                { soort = "lijn", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
+        Figuren lijn = new Figuren(ToString(), this.startpunt, p, s.PenKleur)
+                { soort = ToString(), beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
         s.schets.elementen.Add(lijn);
         s.Invalidate();
     }
@@ -286,15 +270,6 @@ public class PenTool : LijnTool
     public override void MuisDrag(SchetsControl s, Point p)
     {   this.MuisLos(s, p);
         this.MuisVast(s, p);
-    }
-
-    public override void MuisLos2(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        Figuren pen = new Figuren("pen", this.startpunt, p, s.PenKleur)
-                { soort = "pen", beginpunt = this.startpunt, eindpunt = p, kleur = s.PenKleur };
-        s.schets.elementen.Add(pen);
-        s.Invalidate();
     }
 }
     
